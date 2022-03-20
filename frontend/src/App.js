@@ -10,7 +10,7 @@ import Welcome from './components/Welcome';
 import Spinner from './components/Spinner';
 import { Container, Row, Col } from 'react-bootstrap';
 
-const API_URTL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:5050';
+const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:5050';
 const App = () => {
   const [word, setWord] = useState('');
   const [images, setImages] = useState([]);
@@ -18,7 +18,7 @@ const App = () => {
 
   const getSavedImages = async () => {
     try {
-      const res = await axios.get(`${API_URTL}/images`);
+      const res = await axios.get(`${API_URL}/images`);
       setImages(res.data || []);
       setLoading(false);
       toast.success('Saved images downloaded');
@@ -33,7 +33,7 @@ const App = () => {
   const handleSearchSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.get(`${API_URTL}/new-image?query=${word}`);
+      const res = await axios.get(`${API_URL}/new-image?query=${word}`);
       setImages([{ ...res.data, title: word }, ...images]);
       toast.info(`New image ${word.toUpperCase()} was found`);
     } catch (err) {
@@ -45,7 +45,7 @@ const App = () => {
 
   const handleDeleteImage = async (id) => {
     try {
-      const res = await axios.delete(`${API_URTL}/images/${id}`);
+      const res = await axios.delete(`${API_URL}/images/${id}`);
       if (res.data?.deleted_id) {
         toast.warn(
           `Image ${images
@@ -64,7 +64,7 @@ const App = () => {
     const imageToBeSaved = images.find((image) => image.id === id);
     imageToBeSaved.saved = true;
     try {
-      const res = await axios.post(`${API_URTL}/images`, imageToBeSaved);
+      const res = await axios.post(`${API_URL}/images`, imageToBeSaved);
       if (res.data?.inserted_id) {
         setImages(
           images.map((image) =>
