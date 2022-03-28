@@ -10,7 +10,9 @@ import Welcome from './components/Welcome';
 import Spinner from './components/Spinner';
 import { Container, Row, Col } from 'react-bootstrap';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:5050';
+const API_URL =
+  process.env.REACT_APP_API_URL ||
+  'http://ec2-18-220-3-119.us-east-2.compute.amazonaws.com:5050';
 const App = () => {
   const [word, setWord] = useState('');
   const [images, setImages] = useState([]);
